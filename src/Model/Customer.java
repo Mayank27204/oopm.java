@@ -27,7 +27,7 @@ some of the attributes from the Person class. And the class representing the "Pe
  * address:
  */
 
-public class Customer {
+public class Customer implements person{
     /* Customer attributes */
     private int id;
 
@@ -38,6 +38,8 @@ public class Customer {
     private long mobile_no;
     private String email;
     private int name_length;
+    private int age=0;
+    private String nationality="NULL";
 
     public Customer(int id, String name, String Address, long mobile_no, String email) {
         setId(id);
@@ -163,4 +165,26 @@ public class Customer {
     public String getAddress() {
         return this.Address;
     }
+    //OVERTIDDEN FUNCTIONS:-
+    @Override
+    public void set_age(int age)
+    {
+        this.age=age;
+    }
+    @Override
+    public int get_age()
+    {
+        return age;
+    }
+    @Override
+    public void set_nationality(String nationality)
+    {
+        this.nationality=nationality;
+    }
+    @Override
+    public String get_nationality()
+    {
+        return nationality;
+    }
+
 }

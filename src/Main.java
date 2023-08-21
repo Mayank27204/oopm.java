@@ -35,7 +35,10 @@ public class Main {
             System.out.println("4. Display a Food_item");
             System.out.println("5. Add an Order");
             System.out.println("6. Display all Orders");
-            System.out.println("7. Exit");
+            System.out.println("7. Add food item specification");
+            System.out.println("8. Remove a specification");
+            System.out.println("9. Display all spcifications");
+            System.out.println("10. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
             //scanner.nextLine(); // Consume the newline character
@@ -73,6 +76,19 @@ public class Main {
                             cust_array[currentCustomerCount] = new Customer(name, mobile_no, email, address);
 
                         }
+                        scanner.nextLine();
+                        System.out.println("do you want to add nationaliy and age of customer,enter Y for yes anf N for no");
+                        String option= scanner.nextLine();
+                        if(option.equals("Y"))
+                        {
+                            System.out.println("enter nationatlity");
+                            String nationality=scanner.nextLine();
+                            cust_array[currentCustomerCount].set_nationality(nationality);
+                            System.out.println("enter age:");
+                            int age= scanner.nextInt();
+                            cust_array[currentCustomerCount].set_age(age);
+                        }
+
                         System.out.println("\n id is:"+ cust_array[currentCustomerCount].getCustomerId());
                         currentCustomerCount++;
 
@@ -93,6 +109,10 @@ public class Main {
                     System.out.println("MobileNo : " + cust_array[j].getMobileNo());
                     System.out.println("Email : " + cust_array[j].getEmail());
                     System.out.println("Address : " + cust_array[j].getAddress());
+                    if(cust_array[j].get_nationality()!="NULL")
+                        System.out.println("Nationality : "+ cust_array[j].get_nationality());
+                    if(cust_array[j].get_age()!=0)
+                        System.out.println("Age : "+ cust_array[j].get_age());
                     System.out.println("--------------------------------------------------------");
                     break;
 
@@ -104,7 +124,7 @@ public class Main {
                         scanner.nextLine();
                         System.out.print("\nEnter Food_item Name: ");
                         String food_item_name = scanner.nextLine();
-                        System.out.println("do you want to add any specified ingridients, type yes or no");
+                        System.out.println("do you want to add  ingridients, type yes or no");
                         String decision = scanner.nextLine();
                         if(decision.equals("yes"))
                         {
@@ -127,6 +147,9 @@ public class Main {
                             food_items_array[currentfood_itemCount] = new Food_item(idf, food_item_name, food_item_cost, food_item_discount);
 
                         }
+                        System.out.println("enter gst:");
+                        int gst=scanner.nextInt();
+                        food_items_array[currentfood_itemCount].set_gst(gst);
                         currentfood_itemCount++;
 
                         System.out.println("Food_item created and added to the array.");
@@ -144,6 +167,7 @@ public class Main {
                     System.out.println("Food_item_ingredients : " + food_items_array[food_item_id_to_display - 1].getFood_item_ingredients());
                     System.out.println("Food item cost : " + food_items_array[food_item_id_to_display - 1].getFood_item_cost());
                     System.out.println("Food_item_discount : " + food_items_array[food_item_id_to_display - 1].getFood_item_discount());
+                    System.out.println("Food_tem_gst : "+food_items_array[food_item_id_to_display-1].get_gst());
                     System.out.println("--------------------------------------------------------");
                     break;
                 case 5:
@@ -184,12 +208,54 @@ public class Main {
                         orders_array[i].display_customer_orders();
                     }
                     break;
+                case 7:
+                    System.out.println("Enter id of food item: ");
+                    int food_id= scanner.nextInt();
+                    if(food_id < food_items_array.length)
+                    {
+                        scanner.nextLine();
+                        System.out.print("Enter specifications for the Food item "+ food_items_array[food_id-1].getFood_item_name() +": ");
+                        String specification = scanner.nextLine();
+                        food_items_array[food_id-1].add_specifications(specification);
+
+                    }
+                    else
+                    {
+                        System.out.println("Enter Proper Index. Index entered does not exist");
+                    }
+                    break;
+                case 8:
+                    System.out.print("Enter Index of the food item: ");
+                    int food_id1 = scanner.nextInt();
+                    if(food_id1 < food_items_array.length)
+                    {
+                        System.out.print("Enter index of the specification to be removed for the food item "+ food_items_array[food_id1-1].getFood_item_name() +": ");
+                        int specification_no = Integer.parseInt(String.valueOf(scanner.nextInt()));
+                        food_items_array[food_id1-1].remove_specification(specification_no);
+                    }
+                    else {
+                        System.out.println("Enter Proper Index. Index entered does not exist");
+                    }
+                    break;
+                case 9:
+                    System.out.println("enter index of food item: ");
+                    int food_id2 = scanner.nextInt();
+                    if(food_id2 < food_items_array.length)
+                    {
+                        System.out.println("specifications of food item "+food_items_array[food_id2-1].getFood_item_name() +"are : ");
+                        food_items_array[food_id2-1].display_specificatons();
+                    }
+                    else {
+                        System.out.println("Enter Proper Index. Index entered does not exist");
+                    }
+                    break;
+                case 10:break;
 
                 default:
                     System.out.println("Invalid choice. Try again.");
                     break;
             }
-        } while (choice != 7);
+        } while (choice != 10);
         scanner.close();
     }
 }

@@ -1,11 +1,16 @@
 package Model;
-public class Food_item {
+
+import java.util.ArrayList;
+
+public class Food_item implements  item{
     /* food item attributes */
     private int id;
     private String food_item_name;
     private String food_item_ingredients;
     private float food_item_cost;
     private float food_item_discount;
+    private int gst;
+    ArrayList<String> specifications=new ArrayList<>();
     //constructor with specified ingredients:-
     public Food_item(int id, String name, String ingredients, float cost, float discount)
     {
@@ -63,4 +68,35 @@ public class Food_item {
     public float getFood_item_discount() {
         return this.food_item_discount;
     }
+    //overriden functions:-
+        @Override
+        public void set_gst(int gst)
+        {
+            this.gst=gst;
+        }
+        @Override
+        public int get_gst()
+        {
+            return gst;
+        }
+        @Override
+        public void add_specifications(String sp )
+        {
+            this.specifications.add(sp);
+        }
+        @Override
+        public void remove_specification(int specificaton_no)
+        {
+            this.specifications.remove(specificaton_no);
+        }
+        @Override
+        public void display_specificatons()
+        {
+            for(int i=0;i<specifications.size();i++)
+            {
+                System.out.println("specifications "+i+" : "+this.specifications.get(i));
+            }
+        }
+
+
 }
